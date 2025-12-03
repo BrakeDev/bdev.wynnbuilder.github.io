@@ -24,7 +24,7 @@ const skillpoint_final_mult = [1, 1, 0.5/skillPointsToPercentage(150), 0.867, 0.
 // intel water%
 const skillpoint_damage_mult = [1, 1, 1, 0.867, 0.951];
 
-/*Turns the input amount of levels into skillpoints available.
+/** Turns the input amount of levels into skillpoints available.
 *
 * @param level - the integer level count to be converted
 */
@@ -199,6 +199,64 @@ let reversedIDs = [ "spPct1", "spRaw1", "spPct2", "spRaw2", "spPct3", "spRaw3", 
 
 let ingFields = rolledIDs.concat(["str", "dex", "int", "def", "agi"]);
 
+/** Determines if the passed type is a weapon type.
+ * 
+ * @param {string} type - the type of gear
+ * @returns if the gear is a weapon
+ */
+function isWeapon(type) {
+    return weaponTypes.includes(type);
+}
+
+/** Determines if the passed type is an armor type.
+ * 
+ * @param {string} type - the type of gear
+ * @returns if the gear is an armor
+ */
+function isArmor(type) {
+    return armorTypes.includes(type);
+}
+
+/** Determines if the passed type is a consumable type.
+ * 
+ * @param {string} type - the type of gear
+ * @returns if the gear is a consumable
+ */
+function isConsumable(type) {
+    return consumableTypes.includes(type);
+}
+
+/** Determines if the passed type is an accessory type.
+ * 
+ * @param {string} type - the type of gear
+ * @returns if the gear is an accessory
+ */
+function isAccessory(type) {
+    return accessoryTypes.includes(type);
+}
+
+/** Finds the category (weapon, armor, consumable, accessory) of the passed type.
+ * 
+ * @param {string} type - the type of gear
+ * @returns {string} the category classification of the gear
+ */
+function getCategory(type) {
+
+    if (isWeapon(type)) {
+        return "weapon";
+    }
+    if (isArmor(type)) {
+        return "armor";
+    }
+    if (isConsumable(type)) {
+        return "consumable";
+    }
+    if (isAccessory(type)) {
+        return "accessory";
+    }
+    return undefined;
+}
+
 /**
  * Take an item with id list and turn it into a set of minrolls and maxrolls.
  */
@@ -250,7 +308,7 @@ class Item {
     }
 }
 
-/* Takes in an ingredient object and returns an equivalent Map().
+/** Takes in an ingredient object and returns an equivalent Map().
 */
 function expandIngredient(ing) {
     let expandedIng = new Map();
